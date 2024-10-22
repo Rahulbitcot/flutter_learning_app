@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning_app/APIIntegration/random_user_api.dart';
 import 'package:flutter_learning_app/Expenses/Widgets/expenses.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
 
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color(0xFFF4A3A3),
+);
 void main() {
   runApp(const MaterialApp(
     home: Main(),
@@ -53,6 +57,20 @@ class Main extends StatelessWidget {
                       );
                     },
                     child: const Text("Expense Tracker App"),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RandomUserApi(),
+                        ),
+                      );
+                    },
+                    child: const Text("Random User Api"),
                   ),
                 ],
               ),

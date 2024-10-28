@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/APIIntegration/random_user_api.dart';
 import 'package:flutter_learning_app/Expenses/Widgets/expenses.dart';
+import 'package:flutter_learning_app/MealApp/meal_main.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -71,6 +72,17 @@ class Main extends StatelessWidget {
                       );
                     },
                     child: const Text("Random User Api"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MealMain(),
+                        ),
+                      );
+                    },
+                    child: const Text("Meal App"),
                   ),
                 ],
               ),

@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/MealApp/models/meal.dart';
+import 'package:flutter_learning_app/MealApp/widget/meal_detail_screen.dart';
+import 'package:flutter_learning_app/MealApp/widget/meal_item_trail.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MediaItem extends StatelessWidget {
   const MediaItem({super.key, required this.meal});
 
   final Meal meal;
+
+  void _onSelectMeal(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MealDetailScreen(meal: meal),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,7 +28,9 @@ class MediaItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          _onSelectMeal(context);
+        },
         child: Stack(
           children: [
             FadeInImage(
@@ -49,8 +63,23 @@ class MediaItem extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    const Row(
-                      children: [],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MealItemTrail(
+                            icon: Icons.schedule,
+                            label: "${meal.duration} min"),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        MealItemTrail(
+                            icon: Icons.work, label: meal.complexity.name),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        MealItemTrail(
+                            icon: Icons.money, label: meal.affordability.name),
+                      ],
                     )
                   ],
                 ),

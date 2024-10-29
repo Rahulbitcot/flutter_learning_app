@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning_app/MealApp/categories.dart';
+import 'package:flutter_learning_app/MealApp/categories_screen.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 

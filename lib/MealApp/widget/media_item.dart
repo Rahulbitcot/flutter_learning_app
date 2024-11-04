@@ -5,15 +5,18 @@ import 'package:flutter_learning_app/MealApp/widget/meal_item_trail.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MediaItem extends StatelessWidget {
-  const MediaItem({super.key, required this.meal});
+  const MediaItem(
+      {super.key, required this.meal, required this.onToggleMealFavorite});
 
   final Meal meal;
+  final void Function(Meal meal) onToggleMealFavorite;
 
   void _onSelectMeal(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MealDetailScreen(meal: meal),
+        builder: (context) => MealDetailScreen(
+            meal: meal, onToggleMealFavorite: onToggleMealFavorite),
       ),
     );
   }

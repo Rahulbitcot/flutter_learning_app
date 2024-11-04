@@ -3,10 +3,15 @@ import 'package:flutter_learning_app/MealApp/models/meal.dart';
 import 'package:flutter_learning_app/MealApp/widget/media_item.dart';
 
 class Meals extends StatelessWidget {
-  const Meals({super.key, required this.title, required this.meal});
+  const Meals(
+      {super.key,
+      this.title,
+      required this.meal,
+      required this.onToggleMealFavorite});
 
-  final String title;
+  final String? title;
   final List<Meal> meal;
+  final void Function(Meal meal) onToggleMealFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,7 @@ class Meals extends StatelessWidget {
       itemCount: meal.length,
       itemBuilder: (context, index) => MediaItem(
         meal: meal[index],
+        onToggleMealFavorite: onToggleMealFavorite,
       ),
     );
 
@@ -37,9 +43,14 @@ class Meals extends StatelessWidget {
         ),
       );
     }
+
+    if (title == null) {
+      return content;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: content,
     );

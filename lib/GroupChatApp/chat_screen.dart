@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.id, required this.userName});
@@ -58,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     alignment:
                         isSender ? Alignment.centerRight : Alignment.centerLeft,
                     child: Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(6),
                       margin: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 8),
                       decoration: BoxDecoration(
@@ -70,17 +71,21 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            messageText,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          Column(
+                            children: [
+                              Text(
+                                messageText,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            createdAt.toDate().toString() +
-                                " sent by : " +
+                            DateFormat('HH:mm').format(createdAt.toDate()) +
+                                " sent by: " +
                                 userName,
                             style: TextStyle(
                               color: Colors.grey[600],

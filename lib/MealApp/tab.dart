@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/MealApp/categories_screen.dart';
+import 'package:flutter_learning_app/MealApp/filter.dart';
 import 'package:flutter_learning_app/MealApp/models/meal.dart';
+import 'package:flutter_learning_app/MealApp/widget/main_drawer.dart';
 import 'package:flutter_learning_app/MealApp/widget/meals.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+final theme = ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    brightness: Brightness.dark,
+    seedColor: const Color.fromARGB(255, 131, 57, 0),
+  ),
+  textTheme: GoogleFonts.latoTextTheme(),
+);
 
 class Tabs extends StatefulWidget {
   const Tabs({super.key});
@@ -55,10 +67,20 @@ class _TabsState extends State<Tabs> {
       );
       activePageTitle = 'Your Favorite';
     }
+
+    void _setScreen(String identifier) {
+      Navigator.pop(context);
+      if (identifier == 'filter') {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Filter()));
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
+      drawer: MainDrawer(onSelectScreen: _setScreen),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,

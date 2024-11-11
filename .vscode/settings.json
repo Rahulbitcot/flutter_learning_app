@@ -1,5 +1,8 @@
 {
       "cSpell.words": [
-            "ARGB"
-      ]
+            "ARGB",
+            "cupertino",
+            "Firestore"
+      ],
+      "java.configuration.updateBuildConfiguration": "disabled"
 }

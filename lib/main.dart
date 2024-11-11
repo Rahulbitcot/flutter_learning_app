@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/APIIntegration/random_user_api.dart';
 import 'package:flutter_learning_app/Expenses/Widgets/expenses.dart';
+import 'package:flutter_learning_app/GroupChatApp/group_chat_main.dart';
 import 'package:flutter_learning_app/MealApp/tab.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,6 +97,20 @@ class Main extends StatelessWidget {
                     );
                   },
                   child: const Text("Meal App"),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GroupChatMain(),
+                      ),
+                    );
+                  },
+                  child: const Text("Group Chat App"),
                 ),
               ],
             ),

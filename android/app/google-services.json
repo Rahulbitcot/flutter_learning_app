@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "24089712314",
+    "firebase_url": "https://group-chat-flutter-29248-default-rtdb.firebaseio.com",
+    "project_id": "group-chat-flutter-29248",
+    "storage_bucket": "group-chat-flutter-29248.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24089712314:android:82713ef1302daca53e5483",
+        "android_client_info": {
+          "package_name": "com.example.flutter_learning_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk2S7T7tymfXEuvFhWq12jgIiJEjOc9ZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

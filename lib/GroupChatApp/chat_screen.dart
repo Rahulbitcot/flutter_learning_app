@@ -60,39 +60,48 @@ class _ChatScreenState extends State<ChatScreen> {
                         isSender ? Alignment.centerRight : Alignment.centerLeft,
                     child: Container(
                       padding: const EdgeInsets.all(6),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 8),
+                      margin: isSender
+                          ? const EdgeInsets.only(left: 180, right: 8, top: 4)
+                          : const EdgeInsets.only(right: 180, left: 8, top: 4),
                       decoration: BoxDecoration(
                         color: isSender
                             ? Colors.yellow[100]
-                            : const Color.fromARGB(255, 59, 196, 255),
+                            : const Color.fromARGB(255, 184, 237, 239),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                messageText,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        child: Column(
+                          crossAxisAlignment: isSender
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            DateFormat('HH:mm').format(createdAt.toDate()) +
-                                " sent by: " +
-                                userName,
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 10,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              messageText,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              DateFormat('HH:mm').format(createdAt.toDate()),
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

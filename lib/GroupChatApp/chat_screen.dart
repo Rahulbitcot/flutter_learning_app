@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_learning_app/GroupChatApp/current_user.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.id, required this.userName});
-  final String id;
-  final String userName;
-
+  const ChatScreen({super.key, this.id, this.userName});
+  final String? id;
+  final String? userName;
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -19,6 +19,20 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CurrentUser(),
+              ),
+            );
+          },
+          child: Icon(
+            Icons.arrow_back,
+          ),
+        ),
+        actions: [],
         title: const Text("Group Chat"),
       ),
       body: Column(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/GroupChatApp/chat_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GroupChatMain extends StatefulWidget {
   const GroupChatMain({super.key});
@@ -54,8 +55,8 @@ class _GroupChatMainState extends State<GroupChatMain> {
         // Clear the text field after submission
         setState(() {
           nameTextController.clear();
-
-          Navigator.push(
+          saveUserDate(userName, userDocRef.id);
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => ChatScreen(id: id, userName: userName),
@@ -123,5 +124,12 @@ class _GroupChatMainState extends State<GroupChatMain> {
         ),
       ),
     );
+  }
+
+  void saveUserDate(String name, String id) async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setString("id", id);
+    pref.setString("name", name);
+    print("id :  $id  name : $name");
   }
 }

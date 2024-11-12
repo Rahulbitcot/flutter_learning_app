@@ -69,6 +69,7 @@ class _ExpensesState extends State<Expenses> {
           onRemoveExpenses: _onRemoveExpenses);
     }
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Expenses Tracker"),
         backgroundColor: Colors.purple,

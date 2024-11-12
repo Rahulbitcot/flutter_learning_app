@@ -33,10 +33,6 @@ class _CurrentUserState extends State<CurrentUser> {
 
       setState(
           () {}); // Refresh the UI after loading users from SharedPreferences
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("No Chat Found")),
-      );
     }
   }
 
@@ -67,15 +63,21 @@ class _CurrentUserState extends State<CurrentUser> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatScreen(
-                      id: id,
-                      userName: name,
+                if (id != null) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatScreen(
+                        id: id,
+                        userName: name,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("No Chat Found")),
+                  );
+                }
               },
               child: Text("Continue with previous chat"),
             )

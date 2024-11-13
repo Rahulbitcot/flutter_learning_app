@@ -4,15 +4,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qr_mobile_vision/qr_camera.dart';
 
 class QRScannerMain extends StatefulWidget {
-  const QRScannerMain({super.key});
+  QRScannerMain({super.key, this.qrCodeResult});
+  String? qrCodeResult;
 
   @override
   State<QRScannerMain> createState() => _QRScannerMainState();
 }
 
 class _QRScannerMainState extends State<QRScannerMain> {
-  String? qrCodeResult;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,9 +62,9 @@ class _QRScannerMainState extends State<QRScannerMain> {
             SizedBox(
               height: 20,
             ),
-            if (qrCodeResult != null) ...[
+            if (widget.qrCodeResult != null) ...[
               Text(
-                qrCodeResult!,
+                widget.qrCodeResult!,
                 style: TextStyle(color: Colors.white),
               ),
             ]
@@ -90,8 +89,19 @@ class _QRScannerMainState extends State<QRScannerMain> {
                 ),
               ),
               qrCodeCallback: (code) {
-                Navigator.pop(context,
-                    code); // Pass the scanned code back to the previous screen
+                if (mounted) {
+                  // Navigator.pop(context, code);
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QRScannerMain(
+                        qrCodeResult: code,
+                      ),
+                    ),
+                  );
+                }
+                // Pass the scanned code back to the previous screen
               },
             ),
           ),
@@ -100,10 +110,10 @@ class _QRScannerMainState extends State<QRScannerMain> {
         if (code != null) {
           if (mounted) {
             setState(() {
-              qrCodeResult = code; // Update the result
+              widget.qrCodeResult = code; // Update the result
             });
           }
-          print("QR CODE RESULT From Camera: $qrCodeResult");
+          print("QR CODE RESULT From Camera: $widget.qrCodeResult");
         }
       });
     } catch (e) {
@@ -123,18 +133,19 @@ class _QRScannerMainState extends State<QRScannerMain> {
         final barcode = await barcodeScanner.processImage(inputImage);
         if (barcode.isNotEmpty) {
           setState(() {
-            qrCodeResult = barcode.first.displayValue ?? "No QR data found.";
-            print("QR CODE RESULT FROM GALLERY : $qrCodeResult");
+            widget.qrCodeResult =
+                barcode.first.displayValue ?? "No QR data found.";
+            print("QR CODE RESULT FROM GALLERY : $widget.qrCodeResult");
           });
         } else {
           setState(() {
-            qrCodeResult = "No QR code found.";
+            widget.qrCodeResult = "No QR code found.";
           });
         }
       } catch (e) {
         print("Error reading QR code from gallery image: $e");
         setState(() {
-          qrCodeResult = "Could not decode QR code.";
+          widget.qrCodeResult = "Could not decode QR code.";
         });
       } finally {
         barcodeScanner.close();

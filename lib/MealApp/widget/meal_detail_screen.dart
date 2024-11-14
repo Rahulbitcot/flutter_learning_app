@@ -33,11 +33,14 @@ class MealDetailScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(meal.imageUrl),
-              fit: BoxFit.cover,
-              width: double.infinity,
+            Hero(
+              tag: meal.id,
+              child: FadeInImage(
+                placeholder: MemoryImage(kTransparentImage),
+                image: NetworkImage(meal.imageUrl),
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
             const SizedBox(
               height: 10,

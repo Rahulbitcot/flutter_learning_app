@@ -5,6 +5,8 @@ import 'package:flutter_learning_app/GroupChatApp/current_user.dart';
 import 'package:flutter_learning_app/MealApp/tab.dart';
 import 'package:flutter_learning_app/QR%20Scanner/qr_main.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
+import 'package:flutter_learning_app/UIDesign/ui.dart';
+import 'package:flutter_learning_app/WeatherApp/weather_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final theme = ThemeData(
@@ -126,6 +128,28 @@ class Main extends StatelessWidget {
                     );
                   },
                   child: const Text("QR Scanner App"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Ui(),
+                      ),
+                    );
+                  },
+                  child: const Text("Ui Design"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WeatherMain(),
+                      ),
+                    );
+                  },
+                  child: const Text("Weather App"),
                 ),
               ],
             ),

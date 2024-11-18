@@ -53,7 +53,9 @@ class _WeatherMainState extends State<WeatherMain> {
                     fontSize: 20),
               ),
               Spacer(),
-              BottomView()
+              BottomView(
+                location: "Ujjain",
+              )
             ],
           ),
         ),

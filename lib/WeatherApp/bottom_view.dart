@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/WeatherApp/days_item.dart';
+import 'package:flutter_learning_app/WeatherApp/update_location_screen.dart';
 
 class BottomView extends StatefulWidget {
-  const BottomView({super.key});
+  const BottomView({super.key, required this.location});
+  final String location;
 
   @override
   State<BottomView> createState() => _BottomViewState();
@@ -46,28 +48,41 @@ class _BottomViewState extends State<BottomView> {
           SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              DaysItem(),
-              Spacer(),
-              DaysItem(),
-              Spacer(),
-              DaysItem(),
-              Spacer(),
-              DaysItem(),
-              Spacer(),
-              DaysItem(),
-              Spacer(),
-              DaysItem(),
-            ],
+          SizedBox(
+            height: 120,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                DaysItem(day: "Sun"),
+                DaysItem(day: "Mon"),
+                DaysItem(day: "Tue"),
+                DaysItem(day: "Wed"),
+                DaysItem(day: "Thu"),
+                DaysItem(day: "Fri"),
+                DaysItem(day: "Sat"),
+              ],
+            ),
           ),
           SizedBox(
             height: 30,
           ),
-          Icon(
-            Icons.add_circle_rounded,
-            color: Colors.black,
-            size: 50,
+          GestureDetector(
+            onTap: () async {
+              final newLocation = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpdateLocationScreen(),
+                ),
+              );
+              if (newLocation != null) {
+                // await updateLocation(newLocation);
+              }
+            },
+            child: Icon(
+              Icons.add_circle_rounded,
+              color: Colors.black,
+              size: 50,
+            ),
           ),
         ],
       ),

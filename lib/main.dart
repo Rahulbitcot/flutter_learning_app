@@ -129,6 +129,9 @@ class Main extends StatelessWidget {
                   },
                   child: const Text("QR Scanner App"),
                 ),
+                const SizedBox(
+                  height: 30,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -140,6 +143,9 @@ class Main extends StatelessWidget {
                   },
                   child: const Text("Ui Design"),
                 ),
+                const SizedBox(
+                  height: 30,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -150,6 +156,9 @@ class Main extends StatelessWidget {
                     );
                   },
                   child: const Text("Weather App"),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),

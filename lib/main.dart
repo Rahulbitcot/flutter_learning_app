@@ -5,6 +5,7 @@ import 'package:flutter_learning_app/GroupChatApp/current_user.dart';
 import 'package:flutter_learning_app/MealApp/tab.dart';
 import 'package:flutter_learning_app/QR%20Scanner/qr_main.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
+import 'package:flutter_learning_app/Shopping%20App/shopping_main.dart';
 import 'package:flutter_learning_app/UIDesign/ui.dart';
 import 'package:flutter_learning_app/WeatherApp/weather_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -156,6 +157,20 @@ class Main extends StatelessWidget {
                     );
                   },
                   child: const Text("Weather App"),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShoppingMain(),
+                      ),
+                    );
+                  },
+                  child: const Text("Shopping List"),
                 ),
                 const SizedBox(
                   height: 30,

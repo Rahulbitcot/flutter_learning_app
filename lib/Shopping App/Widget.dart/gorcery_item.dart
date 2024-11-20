@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/Shopping%20App/Widget.dart/new_item.dart';
 import 'package:flutter_learning_app/Shopping%20App/data/categories.dart';
-import 'package:flutter_learning_app/Shopping%20App/model/category.dart';
 import 'package:flutter_learning_app/Shopping%20App/model/grocery.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,6 +15,8 @@ class GroceryList extends StatefulWidget {
 
 class _GroceryListState extends State<GroceryList> {
   List<GroceryItem> _groceryItem = [];
+  var _isLoading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -29,6 +30,11 @@ class _GroceryListState extends State<GroceryList> {
         "Shopping-list.json");
     final response = await http.get(url);
 
+    if (response.statusCode >= 400) {
+      setState(() {
+        _error = "Some Error occurred Please Try Again Later";
+      });
+    }
     final Map<String, dynamic> listData = json.decode(response.body);
     final List<GroceryItem> _loadedItem = [];
     for (final item in listData.entries) {
@@ -45,21 +51,45 @@ class _GroceryListState extends State<GroceryList> {
 
     setState(() {
       _groceryItem = _loadedItem;
+      _isLoading = false;
     });
   }
 
-  void _addItem() {
-    Navigator.of(context).push<GroceryItem>(
+  void _addItem() async {
+    final newItem = await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(
         builder: (ctx) => NewItem(),
       ),
     );
-    _loadItem();
+
+    if (newItem == null) {
+      return;
+    }
+
+    setState(() {
+      _groceryItem.add(newItem);
+    });
   }
 
-  void _removeItem(GroceryItem item) {
+  void _removeItem(GroceryItem item) async {
+    var index = _groceryItem.indexOf(item);
     setState(() {
       _groceryItem.remove(item);
+    });
+    final url = Uri.https(
+        "flutter-learning-app-b4787-default-rtdb.firebaseio.com",
+        "Shopping-list/${item.id}.json");
+    final response = await http.delete(url);
+
+    setState(() {
+      if (response.statusCode >= 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Something went wrong please try again "),
+          ),
+        );
+        _groceryItem.insert(index, item);
+      }
     });
   }
 
@@ -71,6 +101,12 @@ class _GroceryListState extends State<GroceryList> {
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
+
+    if (_isLoading) {
+      content = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
 
     if (!_groceryItem.isEmpty) {
       content = ListView.builder(
@@ -91,6 +127,15 @@ class _GroceryListState extends State<GroceryList> {
               _groceryItem[index].quantity.toString(),
             ),
           ),
+        ),
+      );
+    }
+
+    if (_error != null) {
+      content = Center(
+        child: Text(
+          _error!,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       );
     }

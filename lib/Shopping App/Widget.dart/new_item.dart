@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning_app/Shopping%20App/data/categories.dart';
 import 'package:flutter_learning_app/Shopping%20App/model/category.dart';
+import 'package:flutter_learning_app/Shopping%20App/model/grocery.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -18,11 +19,12 @@ class _NewItemState extends State<NewItem> {
   var _enteredName = "";
   var _enteredQuantity = 1;
   var _selectedCategory = categories[Categories.vegetables];
+  var _isSending = false;
 
   void _saveItem() async {
     _FormKey.currentState!.validate();
     _FormKey.currentState!.save();
-
+    _isSending = true;
     final url = Uri.https(
         "flutter-learning-app-b4787-default-rtdb.firebaseio.com",
         "Shopping-list.json");
@@ -39,12 +41,19 @@ class _NewItemState extends State<NewItem> {
       ),
     );
     print(response);
-
+    final Map<String, dynamic> resData = jsonDecode(response.body);
     if (!context.mounted) {
       return;
     }
 
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(
+      GroceryItem(
+        id: resData['name'],
+        name: _enteredName,
+        quantity: _enteredQuantity,
+        category: _selectedCategory!,
+      ),
+    );
   }
 
   @override
@@ -146,17 +155,25 @@ class _NewItemState extends State<NewItem> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      _FormKey.currentState!.reset();
-                    },
+                    onPressed: _isSending
+                        ? null
+                        : () {
+                            _FormKey.currentState!.reset();
+                          },
                     child: Text("Reset"),
                   ),
                   SizedBox(
                     width: 8,
                   ),
                   ElevatedButton(
-                    onPressed: _saveItem,
-                    child: Text("Submit"),
+                    onPressed: _isSending ? null : _saveItem,
+                    child: _isSending
+                        ? SizedBox(
+                            height: 16,
+                            width: 16,
+                            child: const CircularProgressIndicator(),
+                          )
+                        : Text("Submit"),
                   ),
                 ],
               )

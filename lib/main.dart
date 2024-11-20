@@ -3,6 +3,7 @@ import 'package:flutter_learning_app/APIIntegration/random_user_api.dart';
 import 'package:flutter_learning_app/Expenses/Widgets/expenses.dart';
 import 'package:flutter_learning_app/GroupChatApp/current_user.dart';
 import 'package:flutter_learning_app/MealApp/tab.dart';
+import 'package:flutter_learning_app/Places/screens/places.dart';
 import 'package:flutter_learning_app/QR%20Scanner/qr_main.dart';
 import 'package:flutter_learning_app/QuizApp/quiz.dart';
 import 'package:flutter_learning_app/Shopping%20App/shopping_main.dart';
@@ -174,6 +175,17 @@ class Main extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlacesScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text("Favorite Places"),
                 ),
               ],
             ),

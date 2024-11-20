@@ -22,7 +22,9 @@ class _NewItemState extends State<NewItem> {
   var _isSending = false;
 
   void _saveItem() async {
-    _FormKey.currentState!.validate();
+    if (!_FormKey.currentState!.validate()) {
+      return;
+    }
     _FormKey.currentState!.save();
     _isSending = true;
     final url = Uri.https(
@@ -45,15 +47,16 @@ class _NewItemState extends State<NewItem> {
     if (!context.mounted) {
       return;
     }
-
-    Navigator.of(context).pop(
-      GroceryItem(
-        id: resData['name'],
-        name: _enteredName,
-        quantity: _enteredQuantity,
-        category: _selectedCategory!,
-      ),
-    );
+    if (_FormKey.currentState != null) {
+      Navigator.of(context).pop(
+        GroceryItem(
+          id: resData['name'],
+          name: _enteredName,
+          quantity: _enteredQuantity,
+          category: _selectedCategory!,
+        ),
+      );
+    }
   }
 
   @override

@@ -125,6 +125,7 @@ class _GroceryListState extends State<GroceryList> {
             ),
             trailing: Text(
               _groceryItem[index].quantity.toString(),
+              style: TextStyle(fontSize: 20),
             ),
           ),
         ),
